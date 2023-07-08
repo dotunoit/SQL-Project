@@ -73,13 +73,13 @@ Create a View called customer segments that stores the details (id, name, revenu
 
 
 CREATE VIEW customersegment AS
-SELECT c.CustomerID, c.CompanyName, SUM(sod.OrderQty * sod.UnitPrice) AS Revenue,
-    CASE 
-        WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 70000 THEN 'Very High Revenue'
-        WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 50000 THEN 'High Revenue'
-        WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 30000 THEN 'Moderate Revenue'
-        ELSE 'Low Revenue'
-    END AS CustomerSegment
+SELECT c.CustomerID , c.CompanyName, SUM(sod.OrderQty * sod.UnitPrice) AS Revenue,
+CASE
+WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 70000 THEN 'Plantinum'
+WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 50000 THEN 'Gold'
+WHEN SUM(sod.OrderQty * sod.UnitPrice) >= 30000 THEN 'Silver'
+WHEN SUM(sod.OrderQty * sod.UnitPrice) < 30000 THEN 'Bronze'
+END AS [Level]
 FROM SalesLT.Customer c
 JOIN SalesLT.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
 JOIN SalesLT.SalesOrderDetail sod ON soh.SalesOrderID = sod.SalesOrderID
